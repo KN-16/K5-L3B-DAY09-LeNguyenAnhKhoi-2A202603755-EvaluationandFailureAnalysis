@@ -18,7 +18,7 @@
 
 ## 3. Định nghĩa “chạy đúng”
 
-Baseline v1: `E-swarm-20261119-fce9`, SHA `fce967745bea`.
+Baseline v1: `E-swarm-20261119-9f02`, SHA `9f02c09c682e`.
 
 | Metric | Loại | Ngưỡng | Chặn release? | Baseline |
 |---|---|---|---|---:|

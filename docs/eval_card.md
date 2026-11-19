@@ -2,7 +2,7 @@
 
 ### Phiên bản và phạm vi
 
-- **Run ID / eval set SHA:** v1 `E-swarm-20261119-fce9` / `fce967745bea`; v2 `E-swarm-20261119-10f8` / `10f81525d5a0`.
+- **Run ID / eval set SHA:** v1 `E-swarm-20261119-9f02` / `9f02c09c682e`; v2 `E-swarm-20261119-342b` / `342b01d15c66`.
 - **Phiên bản:** code = commit chứa eval card và report này trên PR `starter/d09` (SHA được GitHub Actions ghi nhận); eval set v1; metric spec 1.0; seeds 11/22/33/44/55.
 - **Eval set:** v1 gồm 14 item × 5 seed từ `lab8_public`; v2 gồm 28 item × 5 seed với 14 item adversarial. Nhãn nằm riêng trong `labels_v1.json` và `labels_v2.json`.
 - **Provenance:** Day08 được copy từ repo gốc `K5-Day8-From-Workflows-to-Agents`, branch `main`, commit `034c6c4`; mọi file starter trong `src/` khớp, ngoại trừ `harness_map.yaml` được bổ sung section eval theo yêu cầu Day09.
