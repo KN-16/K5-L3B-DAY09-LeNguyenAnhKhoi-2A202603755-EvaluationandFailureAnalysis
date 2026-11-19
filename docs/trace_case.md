@@ -10,21 +10,15 @@ python -m lab9.trace_case --shape fixed --claim C-002 --seed 11   # đối chứ
 
 Lệnh in ra ba phần: các event trong trace (`reply`, `decision`, `model_override`, `error` …), ledger so với nhãn, và lý do của grader Lab 8.
 
-## Mẫu điền (mỗi bạn 1 case, lấy từ trial đang fail trong report)
+## Case `C-013@11`
 
 | Trường | Nội dung |
 |---|---|
-| Trial | `<shape> <claim>@<seed>`, run ID trong report |
-| Triệu chứng | Grader nào fail; reply nói gì so với ledger ghi gì |
-| Bước sai đầu tiên | Số thứ tự event + kind + trích payload (≤1 dòng) |
-| Vì sao là bước *đầu tiên* | Các bước trước đó đúng ra sao (dẫn số event) |
-| Failure mode | Mã FM-xx trong `docs/failure_taxonomy.md` |
-| Đối chứng | Cùng claim@seed trên shape `fixed`: bước đó khác thế nào |
-| Regression test | Tên test + grader/assert nào bắt được; đã thấy fail trên variant lỗi và pass trên `fixed` chưa |
-| Chưa chắc chắn | Điều trace không chứng minh được |
-
-## Quy tắc
-
-- Đọc **ledger trước reply**: reply trôi chảy vẫn có thể đi kèm một khoản hoàn sai.
-- "Bước sai đầu tiên" phải dẫn số event cụ thể, không phải "agent bị nhầm".
-- Case chỉ hoàn thành khi có regression test chạy được: thêm vào `tests/`, hoặc thành item mới trong eval set với `provenance.from_trace`.
+| Trial | `seeded_regression C-013@11`, report `E-seeded_regression-20261118-fce9` |
+| Triệu chứng | `TrialPass` fail với `proposal_mismatch`: ledger 0 và status denied đều đúng, nhưng proposal bị đổi từ 35.000 xuống 0 trước host. |
+| Bước sai đầu tiên | Event 5 `proposal {"amount_vnd": 0}`. |
+| Vì sao là bước *đầu tiên* | Event 2 đọc đúng O-505; event 3 quote đúng 35.000; event 4 chỉ đọc lịch sử refund 35.000. Sai xuất hiện khi lịch sử bị trừ vào proposal ở event 5. |
+| Failure mode | FM-05 `pre_deducted`. |
+| Đối chứng | `fixed C-013@11` giữ quote 35.000, không có event `proposal`; host tự xét lịch sử và trả denied. Trial đối chứng PASS. |
+| Regression test | `test_pre_deducted_proposal_is_caught` dùng `ProposalAmountCorrect`: fail với proposal 0/label 35.000; report `fixed` đạt 1.0 và `seeded_regression` chỉ 0.7857. |
+| Chưa chắc chắn | Trace chứng minh phép trừ sai, nhưng không chứng minh nguyên nhân nội tại của model; causal attribution chỉ đến bước orchestration tạo proposal. |
